@@ -30,12 +30,21 @@ public class ContentCollectionRepository {
 
     }
 
+    public void save(Content c) {
+        content.removeIf(co->co.id().equals(c.id()));
+        content.add(c);
+    }
+    public boolean doesExists(Integer id){
+        return content.stream().filter(c->c.id().equals(id)).count()== 1;
+    }
+
+    public void delete(Integer id){
+        content.removeIf(c->c.id().equals(id));
+    }
     @PostConstruct
     private void init() {
         Content c = new Content(1, "test world", "test", Status.IDEA, Type.ARTICLE, LocalDateTime.now(), null, "");
         content.add(c);
     }
-    
-    
 
 }
